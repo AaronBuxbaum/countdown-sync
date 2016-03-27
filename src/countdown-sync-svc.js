@@ -2,13 +2,13 @@ angular.module('countdownSync')
 
   .service('CountdownService', function($http, $q, $firebaseObject, $location, FIREBASE_REF) {
     var getRandomWord = function(partOfSpeech) {
-      return $http.get('//api.wordnik.com:80/v4/words.json/randomWord', {
+      return $http.jsonp('//api.wordnik.com/v4/words.json/randomWord', {
         params: {
           includePartOfSpeech: partOfSpeech,
-          minCorpusCount: 9999,
-          minLength: 3,
+          minCorpusCount: 99999,
           maxLength: 8,
-          api_key: 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+          api_key: '1fc56f8dd9cc0cbf910090fba4a0a68c79994c4b512816f09',
+          callback: 'JSON_CALLBACK'
         }
       });
     };

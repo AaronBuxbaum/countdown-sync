@@ -25,7 +25,7 @@ angular.module('countdownSync')
           });
 
           if ($scope.$ctrl.countdown.timer < 1) {
-            ctrl.stopCountdown();
+            clearInterval(intervalId);
           }
         }, 1000);
       };

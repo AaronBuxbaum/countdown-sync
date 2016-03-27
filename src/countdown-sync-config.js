@@ -6,7 +6,7 @@ angular.module('countdownSync')
     $locationProvider.html5Mode(true);
 
     $routeProvider
-      .when('/create', {
+      .when('/', {
         templateUrl: '/create-countdown.html',
         controller: 'CreateCountdownCtrl',
         controllerAs: '$ctrl'
@@ -17,6 +17,6 @@ angular.module('countdownSync')
         controllerAs: '$ctrl'
       })
       .otherwise({
-        redirectTo: '/create'
+        redirectTo: '/'
       });
   });

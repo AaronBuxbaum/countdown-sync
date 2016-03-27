@@ -8,5 +8,5 @@
 
 <span class="md-display-4">
   <span ng-show="$ctrl.countdown.timer">{{$ctrl.countdown.timer}}</span>
-<span ng-hide="$ctrl.countdown.timer">GO!</span>
+  <span ng-hide="$ctrl.countdown.timer < 1">GO!</span>
 </span>
