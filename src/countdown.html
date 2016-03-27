@@ -1,1 +1,12 @@
-TESTING HELLO
+<md-button class="md-raised md-primary" ng-click="$ctrl.startCountdown()" ng-hide="$ctrl.countdown.timer">
+  Start Countdown
+</md-button>
+
+<md-button class="md-raised md-warn" ng-click="$ctrl.stopCountdown()" ng-show="$ctrl.countdown.timer">
+  Stop Countdown
+</md-button>
+
+<span class="md-display-4">
+  <span ng-show="$ctrl.countdown.timer">{{$ctrl.countdown.timer}}</span>
+<span ng-hide="$ctrl.countdown.timer">GO!</span>
+</span>

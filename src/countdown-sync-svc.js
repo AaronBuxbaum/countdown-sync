@@ -1,34 +1,4 @@
-angular
-
-  .module('createCountdown', [
-    'ngMaterial',
-    'firebase',
-    'ngRoute'
-  ])
-
-  .value('FIREBASE_REF', new Firebase('https://countdown-sync.firebaseio.com'))
-
-  .component('main', {
-    controller: 'CreateCountdownCtrl',
-    templateUrl: 'create-countdown.html'
-  })
-
-  .config(function($locationProvider, $routeProvider) {
-    $locationProvider.html5Mode(true);
-
-    $routeProvider
-      .when('/create', {
-        templateUrl: '/create-countdown.html',
-        controller: 'CreateCountdownCtrl',
-      })
-      .when('/:id', {
-        templateUrl: '/countdown.html',
-        controller: 'CountdownCtrl'
-      })
-      .otherwise({
-        redirectTo: '/create'
-      });
-  })
+angular.module('countdownSync')
 
   .service('CountdownService', function($http, $q, $firebaseObject, $location, FIREBASE_REF) {
     var getRandomWord = function(partOfSpeech) {
@@ -69,15 +39,4 @@ angular
     this.openLink = function(key) {
       return $location.path(key);
     };
-  })
-
-  .controller('CreateCountdownCtrl', function(CountdownService) {
-    this.createCountdownLink = function() {
-      var obj = CountdownService.createLink();
-      return CountdownService.openLink(obj.$id);
-    };
-  })
-
-  .controller('CountdownCtrl', function() {
-    console.log('hello');
   });

@@ -1,18 +1,23 @@
 <html>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-route.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-aria.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.min.js"></script>
-  <script src="//cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angularFire/1.1.4/angularfire.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
-  <script src="app.js"></script>
-  
-  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.min.css" />
-  <base href="/">
-  
-  <body ng-app="createCountdown">
-    <div ng-view></div>
-  </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-route.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-aria.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.min.js"></script>
+<script src="//cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angularFire/1.1.4/angularfire.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+
+<script src="countdown-sync.js"></script>
+<script src="countdown-sync-config.js"></script>
+<script src="countdown-sync-ctrl.js"></script>
+<script src="countdown-sync-svc.js"></script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.min.css" />
+<base href="/">
+
+<body ng-app="countdownSync">
+  <div ng-view></div>
+</body>
+
 </html>
