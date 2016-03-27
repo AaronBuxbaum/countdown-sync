@@ -8,10 +8,11 @@ angular.module('countdownSync')
     };
   })
 
-  .controller('CountdownCtrl', function($location, $firebaseObject, $scope, FIREBASE_REF) {
+  .controller('CountdownCtrl', function($state, $firebaseObject, $scope, FIREBASE_REF) {
     var ctrl = this;
-    var uniqueId = $location.path();
     var intervalId;
+
+    var uniqueId = $state.params.id;
     var object = $firebaseObject(FIREBASE_REF.child(uniqueId));
 
     object.$bindTo($scope, '$ctrl.countdown').then(function() {
@@ -35,4 +36,8 @@ angular.module('countdownSync')
         clearInterval(intervalId);
       };
     });
+
+    ctrl.getURL = function() {
+      return window.location.href;
+    };
   });

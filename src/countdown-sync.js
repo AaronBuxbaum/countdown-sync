@@ -1,5 +1,6 @@
 angular.module('countdownSync', [
   'ngMaterial',
   'firebase',
-  'ngRoute'
+  'ui.router',
+  'angular-clipboard'
 ]);

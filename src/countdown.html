@@ -1,3 +1,5 @@
+<md-button class="md-raised" clipboard text="$ctrl.getURL()">Copy URL</md-button>
+
 <md-button class="md-raised md-primary" ng-click="$ctrl.startCountdown()" ng-hide="$ctrl.countdown.timer">
   Start Countdown
 </md-button>
@@ -8,5 +10,5 @@
 
 <span class="md-display-4">
   <span ng-show="$ctrl.countdown.timer">{{$ctrl.countdown.timer}}</span>
-  <span ng-hide="$ctrl.countdown.timer < 1">GO!</span>
+  <span class="md-primary" ng-show="$ctrl.countdown.timer < 1">GO!</span>
 </span>

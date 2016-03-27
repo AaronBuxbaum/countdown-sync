@@ -1,12 +1,12 @@
 angular.module('countdownSync')
 
-  .service('CountdownService', function($http, $q, $firebaseObject, $location, FIREBASE_REF) {
+  .service('CountdownService', function($http, $q, $firebaseObject, $state, FIREBASE_REF) {
     var getRandomWord = function(partOfSpeech) {
       return $http.jsonp('//api.wordnik.com/v4/words.json/randomWord', {
         params: {
           includePartOfSpeech: partOfSpeech,
-          minCorpusCount: 99999,
-          maxLength: 8,
+          minCorpusCount: 10000,
+          maxLength: 10,
           api_key: '1fc56f8dd9cc0cbf910090fba4a0a68c79994c4b512816f09',
           callback: 'JSON_CALLBACK'
         }
@@ -37,6 +37,6 @@ angular.module('countdownSync')
     };
 
     this.openLink = function(key) {
-      return $location.path(key);
+      return $state.go('links', { id: key });
     };
   });
