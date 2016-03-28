@@ -13,7 +13,7 @@ angular.module('countdownSync')
     var intervalId;
 
     var uniqueId = $state.params.id;
-    var object = $firebaseObject(FIREBASE_REF.child(uniqueId));
+    var object = $firebaseObject(FIREBASE_REF.child('links').child(uniqueId));
 
     object.$bindTo($scope, '$ctrl.countdown').then(function() {
       ctrl.startCountdown = function() {
@@ -26,7 +26,8 @@ angular.module('countdownSync')
           });
 
           if ($scope.$ctrl.countdown.timer < 1) {
-            clearInterval(intervalId);
+            ctrl.stopCountdown();
+            ctrl.showText = 'GO!';
           }
         }, 1000);
       };
