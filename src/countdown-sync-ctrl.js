@@ -18,6 +18,8 @@ angular.module('countdownSync')
     object.$bindTo($scope, '$ctrl.countdown').then(function() {
       ctrl.startCountdown = function() {
         $scope.$ctrl.countdown.timer = 10;
+        ctrl.showText = '';
+
         intervalId = setInterval(function() {
           $scope.$apply(function() {
             if (_.isNumber($scope.$ctrl.countdown.timer)) {
