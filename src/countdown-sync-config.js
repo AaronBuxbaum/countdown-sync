@@ -1,8 +1,6 @@
 angular.module('countdownSync')
 
-  .value('FIREBASE_REF', new Firebase('https://countdown-sync.firebaseio.com'))
-
-  .config(function($urlRouterProvider, $stateProvider) {
+  .config(function ($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('');
 
     $stateProvider
@@ -18,4 +16,12 @@ angular.module('countdownSync')
         controller: 'CountdownCtrl',
         controllerAs: '$ctrl'
       });
+
+    var config = {
+      apiKey: "TODO",
+      authDomain: "countdown-sync.firebaseapp.com",
+      databaseURL: "https://countdown-sync.firebaseio.com",
+      storageBucket: "countdown-sync.appspot.com"
+    };
+    firebase.initializeApp(config);
   });

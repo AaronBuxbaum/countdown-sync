@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "countdown-sync",
+    "staging": "countdown-sync"
+  }
+}
