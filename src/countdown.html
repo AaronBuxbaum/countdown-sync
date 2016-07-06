@@ -5,7 +5,7 @@
     Ready
   </md-button>
 
-  <md-button class="md-raised md-primary" ng-click="$ctrl.startCountdown()" ng-show="$ctrl.showStartCountdown">
+  <md-button class="md-raised md-primary" ng-click="$ctrl.startCountdown()" ng-hide="$ctrl.numberOfUnready">
     Start Countdown
   </md-button>
 </div>
@@ -14,10 +14,14 @@
   Stop Countdown
 </md-button>
 
-<span class="md-display-4">
+<div class="md-display-1">
+  <ng-pluralize count="$ctrl.numberOfUnready" when="$ctrl.readyRules"></ng-pluralize>
+</div>
+
+<div class="md-display-4">
   <span ng-show="$ctrl.countdown">{{$ctrl.countdown}}</span>
-<span ng-show="$ctrl.showText">GO!</span>
-</span>
+  <span ng-show="$ctrl.showText">GO!</span>
+</div>
 
 <md-content layout-padding>
   Click "Copy URL" and share it with as many friends as you'd like. Everyone loads the video page (Netflix, Hulu, etc), and

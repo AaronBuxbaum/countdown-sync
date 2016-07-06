@@ -8,28 +8,29 @@ angular.module('countdownSync')
     };
   })
 
-  .controller('CountdownCtrl', function ($state, $interval) {
+  .controller('CountdownCtrl', function ($timeout, $state, $interval) {
     var ctrl = this;
     var intervalId;
     var uniqueId = $state.params.id;
     var ref = firebase.database().ref().child('links').child(uniqueId);
-
-    // Get the number of active users
     var usersRef = ref.child('users');
+    var startTimeRef = ref.child('startTime');
+    var readyRef = ref.child('ready');
+    var numberOfReadyUsers;
+    var numberOfTotalUsers;
+
+    ctrl.readyRules = {
+      '0': 'Everybody is ready! LEGGO!',
+      'one': '1 person is not ready yet.',
+      'other': '{} people are not ready yet.'
+    };
+
     usersRef.once('value', function (response) {
       var connection = usersRef.push(true);
       connection.onDisconnect().remove();
     });
 
-    var startCountdown = function (value) {
-      intervalId = $interval(function () {
-        var d = value - Date.now();
-        ctrl.countdown = (d > 0) ? ((value - Date.now()) / 1000).toFixed(1) + ' seconds' : 'GO!';
-      }, 100);
-    };
-
-    var startTimeRef = ref.child('startTime');
-    startTimeRef.on('value', function (response) {
+    var onStartTimeUpdated = function (response) {
       if (response.val()) {
         startCountdown(response.val());
       }
@@ -37,9 +38,22 @@ angular.module('countdownSync')
         $interval.cancel(intervalId);
         ctrl.countdown = null;
       }
-    });
+    };
+    startTimeRef.on('value', onStartTimeUpdated);
 
-    ctrl.clickedReady = false;
+    var startCountdown = function (value) {
+      intervalId = $interval(function () {
+        var d = value - Date.now();
+        if (d > 0) {
+          ctrl.countdown = ((value - Date.now()) / 1000).toFixed(1) + ' seconds';
+        }
+        else {
+          ctrl.countdown = 'GO!';
+          $interval.cancel(intervalId);
+        }
+      }, 100);
+    };
+
     ctrl.ready = function () {
       if (!ctrl.clickedReady) {
         var readyCount = ref.child('ready');
@@ -49,14 +63,24 @@ angular.module('countdownSync')
       }
     };
 
-    ref.child('ready').on('value', function (ready) {
-      usersRef.on('value', function (users) {
-        ctrl.showStartCountdown = ready.numChildren() >= users.numChildren();
+    var updateCountdownButtonVisibility = function () {
+      $timeout(function () {
+        ctrl.numberOfUnready = numberOfTotalUsers - numberOfReadyUsers;
       });
+    };
+
+    usersRef.on('value', function (users) {
+      numberOfTotalUsers = users.numChildren();
+      updateCountdownButtonVisibility();
+    });
+
+    readyRef.on('value', function (ready) {
+      numberOfReadyUsers = ready.numChildren();
+      updateCountdownButtonVisibility();
     });
 
     ctrl.startCountdown = function () {
-      if (ctrl.showStartCountdown) {
+      if (ctrl.numberOfUnready <= 0) {
         startTimeRef.set(Date.now() + 10 * 1000);
       }
     };
