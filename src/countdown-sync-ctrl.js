@@ -11,6 +11,7 @@ angular
     var numberOfReadyUsers;
     var numberOfTotalUsers;
 
+    ctrl.getURL = CountdownSyncService.getURL;
     ctrl.readyRules = CountdownSyncService.readyRules;
 
     usersRef.once('value', function (response) {
@@ -33,9 +34,9 @@ angular
 
     var startCountdown_ = function (value) {
       intervalId = $interval(function () {
-        var d = value - Date.now();
-        if (d > 0) {
-          ctrl.countdown = ((value - Date.now()) / 1000).toFixed(1) + ' seconds';
+        var dTime = value - Date.now();
+        if (dTime > 0) {
+          ctrl.countdown = CountdownSyncService.prettyPrintCountdown(dTime);
         }
         else {
           ctrl.countdown = 'GO!';
@@ -82,9 +83,5 @@ angular
 
     ctrl.stopCountdown = function () {
       startTimeRef.remove();
-    };
-
-    ctrl.getURL = function () {
-      return window.location.href;
     };
   });
