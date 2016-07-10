@@ -18,7 +18,7 @@ angular
       });
 
     var config = {
-      apiKey: 'AIzaSyAyvn_ksl49ykLPXPPGBNRZlJd-9HWU_GE',
+      apiKey: 'SOMETHING',
       authDomain: 'countdown-sync.firebaseapp.com',
       databaseURL: 'https://countdown-sync.firebaseio.com',
       storageBucket: 'countdown-sync.appspot.com'
