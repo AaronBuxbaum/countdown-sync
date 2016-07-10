@@ -1,5 +1,5 @@
 angular.module('countdownSync')
-  .controller('CountdownCtrl', function ($timeout, $state, $interval) {
+  .controller('CountdownCtrl', function ($timeout, $state, $interval, CountdownSyncService) {
     var ctrl = this;
     var intervalId;
     var uniqueId = $state.params.id;
@@ -10,21 +10,17 @@ angular.module('countdownSync')
     var numberOfReadyUsers;
     var numberOfTotalUsers;
 
-    ctrl.readyRules = {
-      '0': 'Everybody is ready! LEGGO!',
-      'one': '1 person is not ready yet.',
-      'other': '{} people are not ready yet.'
-    };
+    ctrl.readyRules = CountdownSyncService.readyRules;
 
     usersRef.once('value', function (response) {
       var connection = usersRef.push(true);
       connection.onDisconnect().remove();
     });
 
-    var onStartTimeUpdated = function (response) {
+    var onStartTimeUpdated_ = function (response) {
       $timeout(function () {
         if (response.val()) {
-          startCountdown(response.val());
+          startCountdown_(response.val());
         }
         else {
           $interval.cancel(intervalId);
@@ -32,9 +28,9 @@ angular.module('countdownSync')
         }
       });
     };
-    startTimeRef.on('value', onStartTimeUpdated);
+    startTimeRef.on('value', onStartTimeUpdated_);
 
-    var startCountdown = function (value) {
+    var startCountdown_ = function (value) {
       intervalId = $interval(function () {
         var d = value - Date.now();
         if (d > 0) {
@@ -61,7 +57,7 @@ angular.module('countdownSync')
       }
     };
 
-    var updateCountdownButtonVisibility = function () {
+    var updateCountdownButtonVisibility_ = function () {
       $timeout(function () {
         ctrl.numberOfUnready = numberOfTotalUsers - numberOfReadyUsers;
       });
@@ -69,12 +65,12 @@ angular.module('countdownSync')
 
     usersRef.on('value', function (users) {
       numberOfTotalUsers = users.numChildren();
-      updateCountdownButtonVisibility();
+      updateCountdownButtonVisibility_();
     });
 
     readyRef.on('value', function (ready) {
       numberOfReadyUsers = ready.numChildren();
-      updateCountdownButtonVisibility();
+      updateCountdownButtonVisibility_();
     });
 
     ctrl.startCountdown = function () {
