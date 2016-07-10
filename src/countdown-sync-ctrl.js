@@ -1,5 +1,6 @@
-angular.module('countdownSync')
-  .controller('CountdownCtrl', function ($timeout, $state, $interval, CountdownSyncService) {
+angular
+  .module('countdownSync')
+  .controller('CountdownSyncCtrl', function ($timeout, $state, $interval, CountdownSyncService) {
     var ctrl = this;
     var intervalId;
     var uniqueId = $state.params.id;

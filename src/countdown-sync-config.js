@@ -1,5 +1,5 @@
-angular.module('countdownSync')
-
+angular
+  .module('countdownSync')
   .config(function ($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('');
 
@@ -12,8 +12,8 @@ angular.module('countdownSync')
       })
       .state('links', {
         url: '/:id',
-        templateUrl: 'countdown.html',
-        controller: 'CountdownCtrl',
+        templateUrl: 'countdown-sync.html',
+        controller: 'CountdownSyncCtrl',
         controllerAs: '$ctrl'
       });
 
