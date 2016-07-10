@@ -18,10 +18,10 @@ angular
       });
 
     var config = {
-      apiKey: "TODO",
-      authDomain: "countdown-sync.firebaseapp.com",
-      databaseURL: "https://countdown-sync.firebaseio.com",
-      storageBucket: "countdown-sync.appspot.com"
+      apiKey: 'AIzaSyAyvn_ksl49ykLPXPPGBNRZlJd-9HWU_GE',
+      authDomain: 'countdown-sync.firebaseapp.com',
+      databaseURL: 'https://countdown-sync.firebaseio.com',
+      storageBucket: 'countdown-sync.appspot.com'
     };
     firebase.initializeApp(config);
   });
