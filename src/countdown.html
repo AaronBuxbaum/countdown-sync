@@ -5,6 +5,10 @@
     Ready
   </md-button>
 
+  <md-button class="md-raised md-primary" ng-click="$ctrl.unready()" ng-show="$ctrl.clickedReady">
+    Unready
+  </md-button>
+
   <md-button class="md-raised md-primary" ng-click="$ctrl.startCountdown()" ng-hide="$ctrl.numberOfUnready">
     Start Countdown
   </md-button>

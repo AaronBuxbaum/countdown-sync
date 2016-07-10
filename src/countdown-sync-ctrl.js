@@ -31,13 +31,15 @@ angular.module('countdownSync')
     });
 
     var onStartTimeUpdated = function (response) {
-      if (response.val()) {
-        startCountdown(response.val());
-      }
-      else {
-        $interval.cancel(intervalId);
-        ctrl.countdown = null;
-      }
+      $timeout(function () {
+        if (response.val()) {
+          startCountdown(response.val());
+        }
+        else {
+          $interval.cancel(intervalId);
+          ctrl.countdown = null;
+        }
+      });
     };
     startTimeRef.on('value', onStartTimeUpdated);
 
@@ -56,10 +58,15 @@ angular.module('countdownSync')
 
     ctrl.ready = function () {
       if (!ctrl.clickedReady) {
-        var readyCount = ref.child('ready');
-        var isReady = readyCount.push(true);
-        isReady.onDisconnect().remove();
-        ctrl.clickedReady = true;
+        ctrl.clickedReady = readyRef.push(true);
+        ctrl.clickedReady.onDisconnect().remove();
+      }
+    };
+
+    ctrl.unready = function () {
+      if (ctrl.clickedReady) {
+        ctrl.clickedReady.remove();
+        ctrl.clickedReady = null;
       }
     };
 
