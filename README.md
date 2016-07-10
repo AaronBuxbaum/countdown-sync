@@ -1,6 +1,9 @@
 # countdown-sync
-Synchronize a countdown between multiple clients to start some event
+Synchronize a countdown between multiple clients to start some event.
 
+## [Demo](https://countdown-sync.firebaseapp.com/) ##
+
+### Building ###
 Build by hosting the `src` folder on any server (`http-server` is a simple one for local use).
 
 ### Firebase ###
