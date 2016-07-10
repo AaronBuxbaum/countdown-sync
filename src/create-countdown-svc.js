@@ -1,6 +1,6 @@
 angular
   .module('countdownSync')
-  .service('CountdownService', function ($http, $q, $state) {
+  .service('CreateCountdownService', function ($http, $q, $state) {
     var WORDNIK;
     firebase.database().ref('env/WORDNIK').once('value', function (snapshot) {
       WORDNIK = snapshot.val();
