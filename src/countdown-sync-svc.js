@@ -1,12 +1,14 @@
-angular.module('countdownSync')
-
-  .service('CountdownService', function ($http, $q, $firebaseObject, $state) {
+angular
+  .module('countdownSync')
+  .service('CountdownService', function ($http, $q, $state) {
     var WORDNIK;
     firebase.database().ref('env/WORDNIK').once('value', function (snapshot) {
       WORDNIK = snapshot.val();
     });
 
-    var getRandomWord = function (partOfSpeech) {
+    // Get a random word, given a part of speech.
+    // Should be a relatively common word, with minimum corpus of 10000
+    var getRandomWord_ = function (partOfSpeech) {
       return $http.jsonp('//api.wordnik.com/v4/words.json/randomWord', {
         params: {
           includePartOfSpeech: partOfSpeech,
@@ -18,29 +20,36 @@ angular.module('countdownSync')
       });
     };
 
-    var generateRandomKey = function () {
+    // Get a random adjective and a random noun
+    var generateRandomKey_ = function () {
       return $q.all([
-        getRandomWord('adjective'),
-        getRandomWord('noun')
+        getRandomWord_('adjective'),
+        getRandomWord_('noun')
       ]);
     };
 
-    var generateUniqueId = function (words) {
+    // Map id to standardized format
+    var generateUniqueId_ = function (words) {
       return words.map(function (word) {
         return word.data.word.toLowerCase();
       }).join('-');
     };
 
+    // Create id in the database
     this.createLink = function () {
-      return generateRandomKey().then(function (response) {
-        var uniqueId = generateUniqueId(response);
-        var newLink = $firebaseObject(firebase.database().ref('links').child(uniqueId));
-        newLink.createdTime = Date.now();
-        newLink.$save();
+      return generateRandomKey_().then(function (response) {
+        if (!response.length === 2 || !response[0].data.word.length || !response[1].data.word.length) {
+          return;
+        }
+
+        var uniqueId = generateUniqueId_(response);
+        var newLink = firebase.database().ref('links').child(uniqueId);
+        newLink.child('createdTime').set(Date.now());
         return newLink;
       });
     };
 
+    // Change state to go to the given key
     this.openLink = function (key) {
       return $state.go('links', { id: key });
     };
