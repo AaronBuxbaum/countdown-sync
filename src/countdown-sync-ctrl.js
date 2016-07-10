@@ -1,13 +1,4 @@
 angular.module('countdownSync')
-
-  .controller('CreateCountdownCtrl', function (CountdownService) {
-    this.createCountdownLink = function () {
-      return CountdownService.createLink().then(function (obj) {
-        return CountdownService.openLink(obj.$id);
-      });
-    };
-  })
-
   .controller('CountdownCtrl', function ($timeout, $state, $interval) {
     var ctrl = this;
     var intervalId;
